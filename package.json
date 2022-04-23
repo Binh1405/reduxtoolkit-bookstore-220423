@@ -7,6 +7,7 @@
     "@emotion/styled": "^11.8.1",
     "@mui/icons-material": "^5.5.1",
     "@mui/material": "^5.5.2",
+    "@reduxjs/toolkit": "^1.8.1",
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.5.0",
@@ -24,7 +25,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "dev": "json-server --watch ./server/db.json --port 5000 --static ./server/public",
+    "dev": "json-server --watch ./server/db.json --port 8000 --static ./server/public",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
