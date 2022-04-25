@@ -24,7 +24,7 @@ export const getBooks = createAsyncThunk(
 export const getReadingBooks = createAsyncThunk(
   "readingBooks/getReadingBooks",
   async () => {
-    const res = await apiService.get("/favorites");
+    const res = await apiService.get(`/favorites`);
     console.log("res", res);
     return res.data;
   }
@@ -42,11 +42,12 @@ export const addReadingBooks = createAsyncThunk(
 
 export const removeReadingBooks = createAsyncThunk(
   "book/removeReadingBooks",
-  async (bookId) => {
+  async (bookId, { dispatch }) => {
     const res = await apiService.delete(`/favorites/${bookId}`);
     toast.success("The book has been removed");
-    console.log("res", res);
-    return res.data.id;
+    dispatch(getReadingBooks());
+    console.log("data", res.data);
+    return res.data;
   }
 );
 
@@ -62,11 +63,6 @@ export const getSingleBook = createAsyncThunk(
 export const bookSlice = createSlice({
   name: "books",
   initialState,
-  // reducers: {
-  //   getReadingBooks(state, action) {
-  //     state.readingBooks = action.payload;
-  //   },
-  // },
   extraReducers: (builder) => {
     builder
       .addCase(removeReadingBooks.pending, (state) => {
@@ -96,14 +92,12 @@ export const bookSlice = createSlice({
         state.status = "idle";
         state.loading = false;
         state.readingBooks = action.payload;
-        console.log("current state", current(state));
       })
       .addCase(getReadingBooks.rejected, (state, action) => {
         state.status = "error";
         state.error = action.error.message;
         state.loading = false;
       });
-
     builder
       .addCase(addReadingBooks.pending, (state) => {
         state.status = "loading";

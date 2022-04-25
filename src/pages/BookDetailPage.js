@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { ClipLoader } from "react-spinners";
 import { useParams } from "react-router-dom";
-import { toast } from "react-toastify";
-import api from "../api/apiService";
 import { Container, Button, Box, Grid, Stack, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { addReadingBooks, getSingleBook } from "./bookReducer";
@@ -12,6 +10,7 @@ const BACKEND_API = process.env.REACT_APP_BACKEND_API;
 const BookDetailPage = () => {
   const isLoading = useSelector((state) => state.book.loading);
   const book = useSelector((state) => state.book.singleBook);
+  console.log("book", book);
   const params = useParams();
   const bookId = params.id;
 

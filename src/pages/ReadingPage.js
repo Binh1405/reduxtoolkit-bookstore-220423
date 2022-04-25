@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import {
   Container,
   Button,
@@ -16,25 +16,22 @@ import { getReadingBooks, removeReadingBooks } from "./bookReducer";
 import { useDispatch, useSelector } from "react-redux";
 
 const BACKEND_API = process.env.REACT_APP_BACKEND_API;
-console.log("backend api", BACKEND_API);
 
 const ReadingPage = () => {
   const books = useSelector((state) => state.book.readingBooks);
   console.log("books", books);
   const isLoading = useSelector((state) => state.book.loading);
   const navigate = useNavigate();
-
   const handleClickBook = (bookId) => {
     navigate(`/books/${bookId}`);
   };
-
+  const dispatch = useDispatch();
   const removeBook = (bookId) => {
     dispatch(removeReadingBooks(bookId));
   };
-  const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getReadingBooks);
+    dispatch(getReadingBooks());
   }, [dispatch]);
 
   return (
